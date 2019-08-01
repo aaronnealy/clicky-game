@@ -1,12 +1,11 @@
 import React from "react";
-
-import "./style.css";
+import "./FriendCard.css";
 
 function FriendCard(props) {
   return (
-    <div aria-label="click item" className="card shake">
+    <div className="card" onClick={() => props.clickCounter(props.id)}>
       <div className="img-container">
-        <img alt={props.name} src={props.image} onClick={props.handleIncrement} />
+        <img alt={props.name} src={props.image} />
       </div>
     </div>
   );

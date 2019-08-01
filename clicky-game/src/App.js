@@ -3,33 +3,65 @@ import FriendCard from "./components/CharacterCard/FriendCard";
 import Wrapper from "./components/Wrapper/wrapper";
 import Title from "./components/Title/title";
 import friends from "./friends.json";
-import Counter from "./components/Counter/Counter"
+import Navbar from "./components/Navbar/Navbar"
 
 class App extends Component {
   // Setting this.state.friends to the friends json array
   state = {
-    friends
+    friends,
+    score: 0,
+    topScore: 0,
+    clicked: []
   };
 
-  removeFriend = id => {
-    // Filter this.state.friends for friends with an id not equal to the id being removed
-    const friends = this.state.friends.filter(friend => friend.id !== id);
-    // Set this.state.friends equal to the new friends array
-    this.setState({ friends });
-  };
+  componentDidMount() {
+    this.startGame()
+  }
+
+  startGame() {
+    this.setState({
+      friends,
+    score: 0,
+    topScore: 0,
+    clicked: []
+    })
+  }
+
+    // clickCounter increases this.state.score by 1
+    clickCounter = (id) => {
+      if (this.state.clicked.includes(id)) {
+        //you lose
+        this.startGame()
+      } else {
+        let currentClicked = this.state.clicked;
+        currentClicked.push(id);
+        this.setState({
+          clicked: currentClicked,
+          score: this.state.score + 1
+        });
+        this.state.friends.sort(() => Math.random() - 0.5)
+          return true; 
+        } 
+    };
+
+
+
+    //Need something with Math.random() to reset cards
+
+
+  
 
   // Map over this.state.friends and render a FriendCard component for each friend object
   render() {
     return (
       <Wrapper>
         <Title>GAME OF CLICKY!</Title>
-        {/* <Counter> </Counter> */}
+        <Navbar score={this.state.score} topScore={this.state.topScore}> Clicky Game </Navbar>
         {this.state.friends.map(friend => (
           <FriendCard
-            removeFriend={this.removeFriend}
+            clickCounter={this.clickCounter}
             id={friend.id}
             key={friend.id}
-            name={friend.name}
             image={friend.image}
           />
         ))}

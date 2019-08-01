@@ -4,11 +4,13 @@
     font-family: 'Cormorant', serif;
     font-size: 3rem;
     text-decoration: underline;
-    color:white;
+    color:rgb(176, 184, 189);
     margin-bottom: 40px;
+    margin-top: -20px;
+
   }
 
-  .header {
+  .titleHeader {
     /* opacity: 0.8; */
     background-image: url(../images/iron-throne.jpg);
     background-repeat: no-repeat;
