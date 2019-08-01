@@ -20,19 +20,43 @@ class App extends Component {
 
   startGame() {
     this.setState({
-      friends,
+    friends,
     score: 0,
     topScore: 0,
     clicked: []
     })
+   
   }
+//component to reset the game 
+  resetGame = () => {
+    this.setState({
+      friends,
+      score: 0,
+      clicked: []
+      })
+      if (this.state.score > this.state.topScore) {
+        this.setState({topScore: this.state.score}, function() {
+        });
+      }
+      this.state.friends.forEach(friend => {
+        friend.count = 0;
+      });
+  }
+    
+    
 
-    // clickCounter increases this.state.score by 1
+    // clickCounter increases this.state.score by 1, 
     clickCounter = (id) => {
       if (this.state.clicked.includes(id)) {
-        //you lose
-        this.startGame()
+        alert(`When you play the game of clicky, you win or you lose...and you lose... \nscore: ${this.state.score}`);
+        this.setState({score: 0});
+        //^ if user clicks the same image twice, then alert "you lose" and restart game
+      this.resetGame()
+      } else if(this.state.score === 11){
+        alert ("When you play the game of clicky, you win or die...and you WON!");
+        this.startGame();
       } else {
+        //else keep playing the game
         let currentClicked = this.state.clicked;
         currentClicked.push(id);
         this.setState({
@@ -44,12 +68,10 @@ class App extends Component {
         } 
     };
 
-
-
-    //Need something with Math.random() to reset cards
-
-
-  
+    //add feature if (this.state.score = 12 {
+    // 
+    //
+    //})
 
   // Map over this.state.friends and render a FriendCard component for each friend object
   render() {
